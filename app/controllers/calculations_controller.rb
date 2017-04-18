@@ -10,14 +10,21 @@ class CalculationsController < ApplicationController
     # The special word the user input is in the string @special_word.
     # ================================================================================
 
+    text_split_into_array= @text.split
 
-    @word_count = "Replace this string with your answer."
+    @word_count = text_split_into_array.length
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    @character_count_with_spaces = @text.chars.length
 
-    @character_count_without_spaces = "Replace this string with your answer."
+    text_no_spaces = @text.gsub(" ", "")
 
-    @occurrences = "Replace this string with your answer."
+    @character_count_without_spaces = text_no_spaces.chars.length
+
+    downcased_text_split_into_array = @text.downcase.split
+
+    downcased_text_split_into_array_no_punctuation = @text.gsub(".","").downcase.split
+
+    @occurrences = downcased_text_split_into_array_no_punctuation.count(@special_word)
 
     # ================================================================================
     # Your code goes above.
@@ -38,7 +45,7 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    @monthly_payment = ((((@apr/100)/12) * @principal) / (1 - (1 + ((@apr/100)/12)) ** ( -(@years * 12))))
 
     # ================================================================================
     # Your code goes above.
@@ -60,12 +67,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = @ending - @starting
+    @minutes = @seconds/60
+    @hours = @minutes/60
+    @days = @hours/24
+    @weeks = @days/7
+    @years = @weeks/52
 
     # ================================================================================
     # Your code goes above.
@@ -82,32 +89,36 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @sorted_numbers.count
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @sorted_numbers[0]
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @sorted_numbers.last
 
-    @range = "Replace this string with your answer."
+    @range = @maximum - @minimum
 
-    @median = "Replace this string with your answer."
+    if @count % 2 != 0
+      @median = @sorted_numbers[@count/(2)]
+    else
+      @median = @sorted_numbers[@count/(2)]
 
-    @sum = "Replace this string with your answer."
+    @sum = @sorted_numbers.sum
 
-    @mean = "Replace this string with your answer."
+    @mean = @sorted_numbers.sum/ @sorted_numbers.count
 
     @variance = "Replace this string with your answer."
 
-    @standard_deviation = "Replace this string with your answer."
+      @standard_deviation = "Replace this string with your answer."
 
-    @mode = "Replace this string with your answer."
+      @mode = "Replace this string with your answer."
 
-    # ================================================================================
-    # Your code goes above.
-    # ================================================================================
+      # ================================================================================
+      # Your code goes above.
+      # ================================================================================
 
-    render("descriptive_statistics.html.erb")
+      render("descriptive_statistics.html.erb")
+    end
   end
 end
