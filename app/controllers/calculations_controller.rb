@@ -103,10 +103,22 @@ class CalculationsController < ApplicationController
       @median = @sorted_numbers[(@count - 1) /(2)]
     else
       @median = (@sorted_numbers[@count/(2)] + @sorted_numbers[@count/(2) - (1)]) / 2
+    end
 
     @sum = @sorted_numbers.sum
 
     @mean = @sorted_numbers.sum/ @sorted_numbers.count
+
+    a = []
+    while a.length <= @count
+      array_of_mean = rand(@mean)
+      a.push(array_of_mean)
+    end
+
+    x_minus_mu = []
+    x_minus_mu.push (@sorted_numbers - a)
+
+    sum_x_minus_mu = @x_minus_mu.sum
 
     @variance = "Replace this string with your answer."
 
@@ -121,4 +133,3 @@ class CalculationsController < ApplicationController
       render("descriptive_statistics.html.erb")
     end
   end
-end
